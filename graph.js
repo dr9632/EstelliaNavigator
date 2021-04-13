@@ -8,12 +8,14 @@ class Node {
 	constructor(name)
 	{
 		this.name = name;
-		this.adjList = new Map();
+		this.adjList = [];
+		this.distList = new Map();
 	}
 
 	addEdge(dest, dist)
 	{
-		this.adjList.set(dest, dist);
+		this.adjList.push(dest);
+		this.distList.set(dest, dist);
 	}
 }
 
@@ -30,14 +32,14 @@ class Graph {
 	// Pushing vertex v into the graph by init values w/ an array
 	addNode(v)
 	{
-		this.adjList.set(v, []);
+		this.adjList.set(v, new Node(v));
 	}
 
 	// Adding edge between src to dest
-	addEdge(src, dest)
+	addEdge(src, dest, dist)
 	{
-		this.adjList.get(src).push(dest);
-		this.adjList.get(dest).push(src);
+		this.adjList.get(src).addEdge(dest,dist);
+		//this.adjList.get(dest).push(src);
 	}
 }
 
@@ -65,8 +67,53 @@ var points = ['Volcania', 'Nuit', 'Roche', 'Hermetia', 'LueCommercante', 'VentPu
 			  'AkashAkh', 'Akashsami', 'Kasavat', 'TavParvat', 'NagmaWel', 'Nirvasan', 'Vedhshala', 'Himsail'];
 
 for(let i = 0; i < POINTS_NUM; i++) {
+	//let node = new Node(points[i]);
 	worldGraph.addNode(points[i]);
 }
 
 console.log("Nodes initiallized");
 console.log(worldGraph);
+
+// 볼카니아
+worldGraph.addEdge('Volcania' ,'Nuit', 0);
+worldGraph.addEdge('Volcania' ,'Roche', 3);
+worldGraph.addEdge('Volcania' ,'Hermetia', 2);
+worldGraph.addEdge('Volcania' ,'LueCommercante', 3);
+worldGraph.addEdge('Volcania' ,'VentPuissanct', 2);
+worldGraph.addEdge('Volcania' ,'CielTrace', 3);
+worldGraph.addEdge('Volcania' ,'Profond', 5);
+
+worldGraph.addEdge('Volcania' ,'Eldarada', 5);
+worldGraph.addEdge('Volcania' ,'Nevagraniciti', 7);
+worldGraph.addEdge('Volcania' ,'Luvesh', 8);
+worldGraph.addEdge('Volcania' ,'XarMaros', 6);
+worldGraph.addEdge('Volcania' ,'Gluvina', 7);
+worldGraph.addEdge('Volcania' ,'Lusich', 8);
+worldGraph.addEdge('Volcania' ,'Schviceni', 7);
+worldGraph.addEdge('Volcania' ,'ChornyLabrinth', 8);
+
+worldGraph.addEdge('Volcania' ,'Korallea', 10);
+worldGraph.addEdge('Volcania' ,'LichtMeer', 12);
+worldGraph.addEdge('Volcania' ,'Sonnen', 12);
+worldGraph.addEdge('Volcania' ,'DasRosaGewesser', 12);
+worldGraph.addEdge('Volcania' ,'DracheGrat', 13);
+// worldGraph.addEdge('Volcania' ,'WirbelZiel', 3);
+// worldGraph.addEdge('Volcania' ,'SeeLeben', 3);
+worldGraph.addEdge('Volcania' ,'FlimmernStrand', 11);
+
+worldGraph.addEdge('Volcania' ,'Divinamentenia', 15);
+worldGraph.addEdge('Volcania' ,'Escudo', 17);
+worldGraph.addEdge('Volcania' ,'Estancia', 17);
+worldGraph.addEdge('Volcania' ,'Inferior', 15);
+worldGraph.addEdge('Volcania' ,'Sacretista', 17);
+worldGraph.addEdge('Volcania' ,'Estragonia', 20);
+worldGraph.addEdge('Volcania' ,'FlorAldea', 17);
+
+worldGraph.addEdge('Volcania' ,'AkashAkh', 15);
+worldGraph.addEdge('Volcania' ,'Akashsami', 17);
+worldGraph.addEdge('Volcania' ,'Kasavat', 18);
+worldGraph.addEdge('Volcania' ,'TavParvat', 17);
+worldGraph.addEdge('Volcania' ,'NagmaWel', 20);
+worldGraph.addEdge('Volcania' ,'Nirvasan', 18);
+worldGraph.addEdge('Volcania' ,'Vedhshala', 15);
+// worldGraph.addEdge('Volcania' ,'Himsail', 3);
