@@ -1,9 +1,8 @@
+const INIT_VNUM = 0;
+
 /**
  * Creating Graph class
 **/
-
-const INIT_VNUM = 0;
-
 class Node {
 	constructor(name)
 	{
@@ -18,7 +17,6 @@ class Node {
 		this.distList.set(dest, dist);
 	}
 }
-
 class Graph {
 	// Using adj list
 	constructor(vNum)
@@ -41,6 +39,93 @@ class Graph {
 		this.nodeList.get(src).addEdge(dest,dist);
 		//this.adjList.get(dest).push(src);
 	}
+	getNode(src)
+	{
+		return this.nodeList.get(src);
+	}
+}
+
+
+
+/**
+ * Creating Priority Queue class
+**/
+class QElement {
+	constructor(e, priority)
+	{
+		this.element = e;
+		this.priority = priority;
+	}
+}
+class PriorityQueue {
+	constructor(){
+		this.items = [];
+	}
+
+	// Enqueue item based on their priority
+	enqueue(e, priority)
+	{
+		let queueSize = this.items.length;
+		let newElement = new QElement(e, priority);
+		let check = false;
+
+		// Find location of the new element
+		for (let i = 0; i < queueSize; i++) {
+			// Position found
+			if(this.items[i].priority > newElement.priority) {
+				this.items.splice(i, 0, newElement);
+				check = true;
+				break;
+			}
+		}
+
+		// If the element has the highest priority, push it in
+		if(!check)
+			this.items.push(newElement);
+	}
+
+	// Dequeue item
+	dequeue()
+	{
+		// Errchk
+		if(this.isEmpty())
+			return "Queue is empty"
+
+		return this.items.shift();
+	}
+
+	isEmpty()
+	{
+		return this.items.length == 0;
+	}
+
+	front()
+	{
+		// Errchk
+		if(this.isEmpty())
+			return "Queue is empty"
+
+		return this.items[0];
+	}
+
+	end()
+	{
+		// Errchk
+		if(this.isEmpty())
+			return "Queue is empty"
+
+		return this.items[this.items.length - 1];
+	}
+
+	// For debugging purpose
+	printQueue()
+	{
+		let str = "";
+		for (let i = 0; i < this.items.length; i++)
+			str += this.items[i].element + "(" + this.items[i].priority + "), "
+
+		return str;
+	}
 }
 
 
@@ -52,7 +137,7 @@ class Graph {
 // Full teleportable points : 39
 const POINTS_NUM = 39;
 
-var worldGraph = new Graph();
+const worldGraph = new Graph();
 /**
  * '볼카니아', '누이트', '로오쉬', '헤그메타아', '루코메상트', '봉피상트', '시엘트하스', '포포',
  * '엘다라다', '네바그라니치티', '루베시', '자르마로스', '글루비나', '루시치', '스뷔센니', '쵸르니라비린스',
@@ -1787,5 +1872,64 @@ worldGraph.addEdge('Himsail' ,'Vedhshala', 7);
 // worldGraph.addEdge('Nuit' ,'Himsail', 3);
 
 
+/****************  END OF DATA  ****************/
+// console.log(worldGraph);
 
-console.log(worldGraph);
+/**
+ * Functions
+**/
+// Implementing Djikstra's Algorithm to find cheapest path
+var total_cost = 0;
+function djikstra(src, dest) {
+	let heap = new PriorityQueue();
+	heap.enqueue(src, 0);
+	let dist = {};
+	dist[src] = 0;
+	let prev = {};
+	prev[src] = null;
+
+	while(!heap.isEmpty())
+	{
+		console.log(heap.printQueue());
+		let curr_node = heap.dequeue();
+		console.log('Current: '+curr_node.element);
+		if(curr_node.element == dest)
+		{
+			total_cost = dist[dest];
+			let path = [];
+			let path_trace = dest;
+			while(path_trace != null)
+			{
+				path.push(path_trace);
+				// console.log(path);
+				// console.log(prev[path_trace]);
+				path_trace = prev[path_trace];
+			}
+			return path;
+		}
+		else
+		{
+			let curr_adjList = worldGraph.getNode(curr_node.element).adjList;
+			let curr_adjCost = worldGraph.getNode(curr_node.element).distList;
+			for(let i=0; i < curr_adjList.length; i++)
+			{
+				let next_node = curr_adjList[i];
+				let next_cost = curr_adjCost.get(curr_adjList[i]);
+				console.log('path cost: '+ dist[curr_node.element]+' + '+next_cost)
+				let path_cost = dist[curr_node.element] + next_cost;
+				if(!(next_node in dist) || path_cost < dist[next_node])
+				{
+					console.log('Next: '+next_node);
+					console.log('Cost: '+path_cost);
+					dist[next_node] = path_cost;
+					prev[next_node] = curr_node.element;
+					heap.enqueue(next_node, path_cost);
+				}
+			}
+		}
+	}
+
+}
+
+console.log(djikstra('Himsail', 'AkashAkh'));
+console.log('Lowest: '+total_cost);
