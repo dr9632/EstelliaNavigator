@@ -1,3 +1,4 @@
+// import {djikstra} from 'graph.js'
 const INIT_VNUM = 0;
 
 /**
@@ -1931,7 +1932,189 @@ function djikstra(src, dest) {
 
 }
 
+/**
+ * END OF GRAPH
+ **/
 
-// export {djikstra}
-// console.log(djikstra('Himsail', 'AkashAkh'));
-// console.log('Lowest: '+total_cost);
+
+
+var app = new Vue({
+		el: "#vue-div",
+		delimiters: ['${','}'],
+		unsafeDelimiters: ['!{', '}'],
+		data: {
+			src: null,
+			dest: null,
+			areas: [
+				{name: '- 테네브레 -', value: '', available: false},
+				{name: '볼카니아', value: 'Volcania', available: true},
+				{name: '누이트', value: 'Nuit', available: true},
+				{name: '로오쉬', value: 'Roche', available: true},
+				{name: '헤그메티아', value: 'Hermetia', available: true},
+				{name: '루 코메상트', value: 'LueCommercante', available: true},
+				{name: '봉 피상트', value: 'VentPuissanct', available: true},
+				{name: '시엘 트하스', value: 'CielTrace', available: true},
+				{name: '포포', value: 'Profond', available: true},
+
+				{name: '- 시아티 -', value: '', available: false},
+				{name: '엘다라다', value: 'Eldarada', available: true},
+				{name: '네바 그라니치티', value: 'Nevagraniciti', available: true},
+				{name: '루베시', value: 'Luvesh', available: true},
+				{name: '자르마로스', value: 'XarMaros', available: true},
+				{name: '글루비나', value: 'Gluvina', available: true},
+				{name: '루시치', value: 'Lusich', available: true},
+				{name: '스뷔센니', value: 'Schviceni', available: true},
+				{name: '쵸르니 라비린스', value: 'ChornyLabrinth', available: true},
+
+				{name: '- 언티프 -', value: '', available: false},
+				{name: '코할레아', value: 'Korallea', available: true},
+				{name: '리히트 미아', value: 'LichtMeer', available: true},
+				{name: '소넨', value: 'Sonnen', available: true},
+				{name: '다 로자 그베사', value: 'DasRosaGewesser', available: true},
+				{name: '드라흐 가트', value: 'DracheGrat', available: true},
+				{name: '빌들 지엘', value: 'WirbelZiel', available: true},
+				{name: '시 리빈', value: 'SeeLeben', available: true},
+				{name: '플레만 스트란트', value: 'FlimmernStrand', available: true},
+
+				{name: '- 플로타피온 -', value: '', available: false},
+				{name: '디뷔나멘테니아', value: 'Divinamentenia', available: true},
+				{name: '에스쿠도', value: 'Escudo', available: true},
+				{name: '에스탄피아', value: 'Estancia', available: true},
+				{name: '인페리오', value: 'Inferior', available: true},
+				{name: '세크리티스타', value: 'Sacretista', available: true},
+				{name: '에스트라고니아', value: 'Estragonia', available: true},
+				{name: '플로알데아', value: 'FlorAldea', available: true},
+
+				{name: '- 아심 -', value: '', available: false},
+				{name: '아다쉬 아크', value: 'AkashAkh', available: true},
+				{name: '아다쉬 사미', value: 'Akashsami', available: true},
+				{name: '카사바트', value: 'Kasavat', available: true},
+				{name: '타브 파르바트', value: 'TavParvat', available: true},
+				{name: '나그마 웰', value: 'NagmaWel', available: true},
+				{name: '니르바산', value: 'Nirvasan', available: true},
+				{name: '빗살라', value: 'Vedhshala', available: true},
+				{name: '힘세일', value: 'Himsail', available: true},
+			],
+			dest_areas: [
+				{name: '- 테네브레 -', value: '', available: false},
+				{name: '볼카니아', value: 'Volcania', available: true},
+				{name: '누이트', value: 'Nuit', available: true},
+				{name: '로오쉬', value: 'Roche', available: true},
+				{name: '헤그메티아', value: 'Hermetia', available: true},
+				{name: '루 코메상트', value: 'LueCommercante', available: true},
+				{name: '봉 피상트', value: 'VentPuissanct', available: true},
+				{name: '시엘 트하스', value: 'CielTrace', available: true},
+				{name: '포포', value: 'Profond', available: true},
+
+				{name: '- 시아티 -', value: '', available: false},
+				{name: '엘다라다', value: 'Eldarada', available: true},
+				{name: '네바 그라니치티', value: 'Nevagraniciti', available: true},
+				{name: '루베시', value: 'Luvesh', available: true},
+				{name: '자르마로스', value: 'XarMaros', available: true},
+				{name: '글루비나', value: 'Gluvina', available: true},
+				{name: '루시치', value: 'Lusich', available: true},
+				{name: '스뷔센니', value: 'Schviceni', available: true},
+				{name: '쵸르니 라비린스', value: 'ChornyLabrinth', available: true},
+
+				{name: '- 언티프 -', value: '', available: false},
+				{name: '코할레아', value: 'Korallea', available: true},
+				{name: '리히트 미아', value: 'LichtMeer', available: true},
+				{name: '소넨', value: 'Sonnen', available: true},
+				{name: '다 로자 그베사', value: 'DasRosaGewesser', available: true},
+				{name: '드라흐 가트', value: 'DracheGrat', available: true},
+				{name: '빌들 지엘', value: 'WirbelZiel', available: true},
+				{name: '시 리빈', value: 'SeeLeben', available: true},
+				{name: '플레만 스트란트', value: 'FlimmernStrand', available: true},
+
+				{name: '- 플로타피온 -', value: '', available: false},
+				{name: '디뷔나멘테니아', value: 'Divinamentenia', available: true},
+				{name: '에스쿠도', value: 'Escudo', available: true},
+				{name: '에스탄피아', value: 'Estancia', available: true},
+				{name: '인페리오', value: 'Inferior', available: true},
+				{name: '세크리티스타', value: 'Sacretista', available: true},
+				{name: '에스트라고니아', value: 'Estragonia', available: true},
+				{name: '플로알데아', value: 'FlorAldea', available: true},
+
+				{name: '- 아심 -', value: '', available: false},
+				{name: '아다쉬 아크', value: 'AkashAkh', available: true},
+				{name: '아다쉬 사미', value: 'Akashsami', available: true},
+				{name: '카사바트', value: 'Kasavat', available: true},
+				{name: '타브 파르바트', value: 'TavParvat', available: true},
+				{name: '나그마 웰', value: 'NagmaWel', available: true},
+				{name: '니르바산', value: 'Nirvasan', available: true},
+				{name: '빗살라', value: 'Vedhshala', available: true},
+				{name: '힘세일', value: 'Himsail', available: true},
+			],
+			areaNames: ['볼카니아', '누이트', '로오쉬', '헤그메티아', '루코메상트', '봉피상트', '시엘트하스', '포포',
+ 						'엘다라다', '네바그라니치티', '루베시', '자르마로스', '글루비나', '루시치', '스뷔센니', '쵸르니라비린스',
+ 						'코할레아', '리히트미아', '소넨', '다로자그베사', '드라흐가트', '빌들지엘', '시리빈', '플레만스트란트', 
+ 						'디뷔나멘테니아', '에스쿠도', '에스탄피아', '인페리오', '세크리티스타', '에스트라고니아', '플로알데아', 
+ 						'아다쉬아크', '아다쉬사미', '카사바트', '타브파르바트', '나그마웰', '니르바산', '빗살라', '힘세일'],
+ 			keyNames: ['Volcania', 'Nuit', 'Roche', 'Hermetia', 'LueCommercante', 'VentPuissanct', 'CielTrace', 'Profond',
+						'Eldarada', 'Nevagraniciti', 'Luvesh', 'XarMaros', 'Gluvina', 'Lusich', 'Schviceni', 'ChornyLabrinth',
+						'Korallea', 'LichtMeer', 'Sonnen', 'DasRosaGewesser', 'DracheGrat', 'WirbelZiel', 'SeeLeben', 'FlimmernStrand', 
+						'Divinamentenia', 'Escudo', 'Estancia', 'Inferior', 'Sacretista', 'Estragonia', 'FlorAldea', 
+						'AkashAkh', 'Akashsami', 'Kasavat', 'TavParvat', 'NagmaWel', 'Nirvasan', 'Vedhshala', 'Himsail'],
+			path: [],
+			cost: 0
+		},
+		methods: {
+			init___dest: function(){
+				let size = this.dest_areas.length;
+				for(let i=0; i < size; i++){
+					if(this.dest_areas[i].value != '')
+						this.dest_areas[i].available = true;
+				}
+			},
+			chk_destination: function(src){
+				this.init___dest();
+				let size = this.dest_areas.length;
+				
+				for(let i=0; i< size; i++){
+					// 출발지와 목적지가 같을 경우 제외
+					if(src == this.dest_areas[i].name) {
+						this.dest_areas[i].available = false;
+						break;
+					}
+				}
+				
+				return this.dest_areas;
+			},
+			convert_to_key: function(src, dest){
+				let t_src = src;
+				let t_dest = dest;
+				for (let i=0; i<this.areas.length; i++){
+					if(this.areas[i].name == src) {
+						this.src = this.areas[i].value;
+					}
+					if(this.areas[i].name == dest)
+						this.dest = this.areas[i].value;
+				}
+
+				// Run djikstra
+				this.path = djikstra(this.src, this.dest);
+				this.cost = total_cost;
+
+				let temp = [];
+				for(let i=1; i < this.path.length-1; i++){
+					for(let j=0; j < this.areas.length; j++){
+						if(this.areas[j].value == this.path[i]){
+							temp.splice(0, 0, this.areas[j].name);
+							break;
+						}
+					}
+				}
+
+				this.src = t_src;
+				this.dest = t_dest;
+				this.path = temp;
+			},
+			convert_to_name: function(){
+				
+			},
+			re_init: function(){
+				this.src = null;
+				this.dest = null;
+			}
+		}
+});

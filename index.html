@@ -1,9 +1,64 @@
 <html>
 <head>
 <title></title>
-<script type="text/javascript" src="graph.js"></script>
+<link rel="stylesheet" type="text/css" href="stupid.css">
+<script src="https://kit.fontawesome.com/bd4ac3fe90.js" crossorigin="anonymous"></script>
 </head>
 <body>
-dtt
+<div id="vue-div" class="container display:none">
+	<div class="container max900 padded">
+		<div class="fill center padded">
+			<h2>에스텔리아 네비게이터</h2>
+		</div>
+
+		<div class="third center">
+			<b>출발지</b>
+		</div>
+		<div class="third">
+			&nbsp;
+		</div>
+		<div class="third center">
+			<b>도착지</b>
+		</div>
+
+		<div class="third center">
+			<select v-model="src" v-on:click="chk_destination(src)">
+				<option disabled value="">출발지를 선택해주세요</option>
+
+				<option v-for="area in areas" :disabled="!area.available">${area.name}</option>
+			</select>
+		</div>
+		<div class="third center">
+			<i class="fas fa-long-arrow-alt-right fa-4x"></i>
+		</div>
+		<div class="third center">
+			<select v-model="dest">
+				<option disabled value="">목적지를 선택해주세요</option>
+
+				<option v-for="area in dest_areas" :disabled="!area.available">${area.name}</option>
+			</select>
+		</div>
+		<div class="fill center padded">
+			<a v-if="src==null || dest==null" class="btn large gray rounded">노선을 선택해주세요</a>
+			<a v-if="src!=null && dest!=null" class="btn large black rounded pulse" href="#result" v-on:click="convert_to_key(src, dest)">GO!</a>
+		</div>
+	</div>
+    <div class="modal" id="result">
+      <div class="twothirds rounded white padded">
+        <h2>소모비용: ${cost} G</h2>
+        ${src} <i class="fas fa-long-arrow-alt-right"></i> 
+        <span v-for="route in path">${route} <i class="fas fa-long-arrow-alt-right"></i> </span>
+        ${dest}
+        <div class="right">
+          <a class="close btn black" href="#" v-on:click="re_init()">close</a>
+        </div>
+      </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+<!-- <script src="graph.js"></script> -->
+<script src="index.js"></script>
+
 </body>
 </html>
