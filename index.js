@@ -38,7 +38,6 @@ class Graph {
 	addEdge(src, dest, dist)
 	{
 		this.nodeList.get(src).addEdge(dest,dist);
-		//this.adjList.get(dest).push(src);
 	}
 	getNode(src)
 	{
@@ -1891,9 +1890,7 @@ function djikstra(src, dest) {
 
 	while(!heap.isEmpty())
 	{
-		console.log(heap.printQueue());
 		let curr_node = heap.dequeue();
-		console.log('Current: '+curr_node.element);
 		if(curr_node.element == dest)
 		{
 			total_cost = dist[dest];
@@ -1916,12 +1913,9 @@ function djikstra(src, dest) {
 			{
 				let next_node = curr_adjList[i];
 				let next_cost = curr_adjCost.get(curr_adjList[i]);
-				console.log('path cost: '+ dist[curr_node.element]+' + '+next_cost)
 				let path_cost = dist[curr_node.element] + next_cost;
 				if(!(next_node in dist) || path_cost < dist[next_node])
 				{
-					console.log('Next: '+next_node);
-					console.log('Cost: '+path_cost);
 					dist[next_node] = path_cost;
 					prev[next_node] = curr_node.element;
 					heap.enqueue(next_node, path_cost);
@@ -2065,6 +2059,11 @@ var app = new Vue({
 					if(this.dest_areas[i].value != '')
 						this.dest_areas[i].available = true;
 				}
+
+
+				// 이동불가 지역 막아두기
+				this.dest_areas[24].available = false;
+				this.dest_areas[25].available = false;
 			},
 			chk_destination: function(src){
 				this.init___dest();
