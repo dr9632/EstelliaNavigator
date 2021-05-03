@@ -1180,7 +1180,7 @@ worldGraph.addEdge('FlimmernStrand' ,'XarMaros', 9);
 worldGraph.addEdge('FlimmernStrand' ,'Gluvina', 12);
 worldGraph.addEdge('FlimmernStrand' ,'Lusich', 8);
 worldGraph.addEdge('FlimmernStrand' ,'Schviceni', 15);
-worldGraph.addEdge('FlimmernStrand' ,'ChornyLabrinth', 4);
+worldGraph.addEdge('FlimmernStrand' ,'ChornyLabrinth', 8);
 
 worldGraph.addEdge('FlimmernStrand' ,'Korallea', 0);
 worldGraph.addEdge('FlimmernStrand' ,'LichtMeer', 2);
